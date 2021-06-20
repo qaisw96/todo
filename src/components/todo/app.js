@@ -4,7 +4,7 @@ import Header from './Header.js';
 import React from 'react';
 
 
-import ToDo from './components/todo/todo.js';
+import ToDo from './todo.js';
 
 export default () => {
     return (

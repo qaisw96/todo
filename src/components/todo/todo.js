@@ -3,7 +3,7 @@ import { useState, useEffect  } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 
-import './todo.scss';
+import '../../css/todo.scss';
 
 const ToDo = (props) => {
 
@@ -48,11 +48,11 @@ const ToDo = (props) => {
 
     return (
       <>
-        <header>
+        <div>
           <h2>
           There are {list.filter(item => !item.complete).length} Items To Complete
           </h2>
-        </header>
+        </div>
 
         <section className="todo">
 
