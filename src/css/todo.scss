@@ -1,3 +1,5 @@
+
+
 body, html {
     height: 100%;
     margin: 0;
@@ -57,6 +59,8 @@ body, html {
 
             &.complete-true {
               span {
+                  display: flex;
+                  justify-content: space-between;
                 background: pink;
                 text-decoration:line-through;
                 &:hover {
@@ -71,6 +75,8 @@ body, html {
                 &:hover {
                     background: pink;
                 }
+
+
             }
              span, input {
                  border: .5px solid #eee;
@@ -91,4 +97,17 @@ body, html {
         }
     }
 
+}
+
+
+.task {
+    display: flex;
+    justify-content: space-between;
+}
+
+.updatedForm {
+    background-color: lightblue;
+    padding: 20px;
+
+    
 }

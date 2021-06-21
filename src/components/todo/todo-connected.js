@@ -27,6 +27,7 @@ const ToDo = () => {
       .catch(console.error);
   };
 
+
   const _toggleComplete = id => {
 
     let item = list.filter(i => i._id === id)[0] || {};
@@ -58,11 +59,14 @@ const ToDo = () => {
       mode: 'cors',
     })
       .then(data => data.json())
-      .then(data => setList(data.results))
+      .then(data => {
+         setList(data.results)
+
+      })
       .catch(console.error);
   };
 
-  useEffect(_getTodoItems, []);
+  useEffect(_getTodoItems , []);
 
   return (
     <>

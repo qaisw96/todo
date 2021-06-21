@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState} from 'react'
+import IF from './if'
 
 const TodoForm = (props) =>  {
   const [item, setItem] = useState({})
@@ -10,10 +11,10 @@ const TodoForm = (props) =>  {
   };
 
   const handleSubmit = (e) => {
-    console.log('from form', item);
+    const checkAddOrUpdate = e.target.go.value
+    checkAddOrUpdate === 'add' ? props.handleSubmit(item) : props.handleUpdate(item)
     e.preventDefault();
     e.target.reset();
-    props.handleSubmit(item);
     setItem({});
   };
 
@@ -37,8 +38,27 @@ const TodoForm = (props) =>  {
             <span>Assigned To</span>
             <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} />
           </label>
-          <button>Add Item</button>
+          <button name="go" value="add">Add Item</button>
         </form>
+        <IF condition={props.showUpdate}>
+          <form onSubmit={handleSubmit} className="updatedForm" >
+            <span>Task :</span>
+            <input
+              name="text"
+              placeholder="Add To Do List Item"
+              onChange={handleInputChange}
+              defaultValue={props.updatedItem.text}
+            />
+            <span>Difficulty :</span>
+            <input defaultValue={props.updatedItem.difficulty} type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} />
+            <span>Assignee :</span>
+            {/* <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} /> */}
+
+            <button name="go" value="update">update Item</button>
+
+          </form>
+        </IF>
+
       </>
     );
 }
