@@ -48,7 +48,6 @@ const ToDo = (props) => {
        setList(newList)
     }
     setShowUpdate(false)
-
   }
 
 

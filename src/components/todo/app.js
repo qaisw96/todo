@@ -8,10 +8,11 @@ import ToDoConnected from './todo-connected.js';
 export default () => {
     return (
       <>
-        <ToDoConnected/>
-        <ToDo />
+        <Header/>
+        <ToDoConnected />
       </>
     );
 }
 
 // App Component
+

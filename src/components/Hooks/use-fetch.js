@@ -1,26 +1,27 @@
-import superagent from 'superagent'
 import { useState, useEffect } from 'react'
-// const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
+import axios from 'axios'
 
 
-const useFetch = (url) => {
-  const [data, setData] = useState(null)
+const useFetch =  () => {
   const [isLoading, setIsLoading] = useState(false)
   const [finishLoading, setFinishLoading] = useState(false)
-  
-  useEffect(() => {
+
+    const api = async (method, url, item) => {
       setIsLoading(true)
-      fetch(url)
-        .then((response) => response.json())
-        .then((result) => {
-          setData(result.results)
-          setIsLoading(false)
-          setFinishLoading(true)
+      const toDo= await axios({
+        method: method,
+        url: url,
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json' },
+        data: item,
         })
-// fetchData()
-  }, [url])
-return { data, isLoading, finishLoading }
-  }
-        
+        setIsLoading(false)
+        setFinishLoading(true)
+        return toDo.data ; 
+    }
+  return { api,  isLoading, finishLoading}
+}
+
 
 export default useFetch

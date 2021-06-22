@@ -4,8 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import {ProgressBar} from 'react-bootstrap'
 const TodoList = (props) => {
-
-
   
     return (
       <div>
