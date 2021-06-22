@@ -1,30 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
-
-import './todo.scss';
-
-const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
-
+import '../../css/todo.scss';
+import useFetch from '../Hooks/use-fetch'
+import IF  from './if'
+import newDate from '../../handleFunction/set-date' 
+const todoAPI = 'https://api-server402.herokuapp.com/todo';
 
 const ToDo = () => {
 
-  const [list, setList] = useState([]);
+  const { api, isLoading, finishLoading } = useFetch()
+  const [list, setList] = useState([])
+  const [showUpdate, setShowUpdate] = useState(false)
+  
 
+  const handleRemove =  id => {
+    console.log(id);
+    const newList = list.filter(el => el._id !== id)
+    setList(newList)
+    let deleteItem = async () => {
+      await api('delete', `${todoAPI}/${id}`)
+    } 
+    deleteItem()
+  }
+
+  const show = (item) => {
+    setShowUpdate(true)
+  }
   const _addItem = (item) => {
-    item.due = new Date();
-    fetch(todoAPI, {
-      method: 'post',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(item)
-    })
-      .then(response => response.json())
-      .then(savedItem => {
-        setList([...list, savedItem])
-      })
-      .catch(console.error);
+    item.complete  = true
+    item.date =newDate();
+    let post = async () => {
+      await api('post', todoAPI, item)
+    } 
+    post()
+    setList([...list, item])
   };
 
 
@@ -53,19 +63,14 @@ const ToDo = () => {
     }
   };
 
-  const _getTodoItems = () => {
-    fetch(todoAPI, {
-      method: 'get',
-      mode: 'cors',
-    })
-      .then(data => data.json())
-      .then(data => {
-         setList(data.results)
-
-      })
-      .catch(console.error);
+  const _getTodoItems =  () => {
+    const get = async () => {
+      let newList= await api('get', todoAPI)
+      console.log(newList);
+      setList(newList)
+    }
+    get()
   };
-
   useEffect(_getTodoItems , []);
 
   return (
@@ -78,16 +83,30 @@ const ToDo = () => {
 
       <section className="todo">
 
-        <div>
-          <TodoForm handleSubmit={_addItem} />
-        </div>
+        <section className="todo">
 
-        <div>
-          <TodoList
-            list={list}
-            handleComplete={_toggleComplete}
-          />
-        </div>
+          <div>
+            <TodoForm handleSubmit={_addItem}
+             showUpdate={showUpdate}
+            //  updatedItem={updatedItem}
+            //  handleUpdate={handleUpdate}
+             />
+          </div>
+          <IF condition={finishLoading}>
+            <div>
+              <TodoList
+                list={list}
+
+                handleComplete={_toggleComplete}
+                handleRemove={handleRemove}
+
+                show={show}
+
+              />
+            </div>
+
+          </IF>
+        </section>
       </section>
     </>
   );

@@ -1,22 +1,15 @@
 import React from 'react';
 import {useState} from 'react'
+import useForm from '../Hooks/use-form'
 import IF from './if'
 
 const TodoForm = (props) =>  {
-  const [item, setItem] = useState({})
+  const { item, setItem, handleInputChange,  handleSubmit } = useForm(cb)
 
-  const handleInputChange = e => {
-    setItem({ ...item, [e.target.name]: e.target.value });
+  function cb(item) {
     console.log(item);
-  };
-
-  const handleSubmit = (e) => {
-    const checkAddOrUpdate = e.target.go.value
-    checkAddOrUpdate === 'add' ? props.handleSubmit(item) : props.handleUpdate(item)
-    e.preventDefault();
-    e.target.reset();
-    setItem({});
-  };
+    props.handleSubmit(item) 
+  }
 
     return (
       <>
@@ -52,7 +45,7 @@ const TodoForm = (props) =>  {
             <span>Difficulty :</span>
             <input defaultValue={props.updatedItem.difficulty} type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} />
             <span>Assignee :</span>
-            {/* <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} /> */}
+            <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} />
 
             <button name="go" value="update">update Item</button>
 

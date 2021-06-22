@@ -3,14 +3,16 @@ import React from 'react';
 
 
 import ToDo from './todo.js';
+import ToDoConnected from './todo-connected.js';
 
 export default () => {
     return (
       <>
         <Header/>
-        <ToDo />
+        <ToDoConnected />
       </>
     );
 }
 
 // App Component
+
