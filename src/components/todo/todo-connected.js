@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
-
-import './todo.scss';
-
+import superagent from 'superagent'
+import '../../css/todo.scss';
+import useFetch from '../Hooks/use-fetch'
+import IF  from './if'
 const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
+
 
 
 const ToDo = () => {
 
-  const [list, setList] = useState([]);
+  const { data, isLoading, finishLoading } = useFetch(todoAPI)
+  const [list, setList] = useState([])
+
+  const [showUpdate, setShowUpdate] = useState(false)
+
+  const show = (item) => {
+    setShowUpdate(true)
+    // setUpdatedItem(item)
+  }
+
 
   const _addItem = (item) => {
     item.due = new Date();
@@ -53,17 +64,22 @@ const ToDo = () => {
     }
   };
 
-  const _getTodoItems = () => {
-    fetch(todoAPI, {
-      method: 'get',
-      mode: 'cors',
-    })
-      .then(data => data.json())
-      .then(data => {
-         setList(data.results)
+  const _getTodoItems = async () => {
+    // setList([])
+    // let res = await superagent.get(todoAPI)
+    // const headers = res.headers
+    // const results = res.body
+    // setList(data)
+    console.log('reloading');
+    // fetch(todoAPI, {
+    //   method: 'get',
+    //   mode: 'cors',
+    // })
+    //   .then(data => data.json())
+    //   .then(data => {
 
-      })
-      .catch(console.error);
+    //   })
+    //   .catch(console.error);
   };
 
   useEffect(_getTodoItems , []);
@@ -78,16 +94,28 @@ const ToDo = () => {
 
       <section className="todo">
 
-        <div>
-          <TodoForm handleSubmit={_addItem} />
-        </div>
+        <section className="todo">
 
-        <div>
-          <TodoList
-            list={list}
-            handleComplete={_toggleComplete}
-          />
-        </div>
+          <div>
+            <TodoForm handleSubmit={_addItem}
+            //  showUpdate={showUpdate}
+            //  updatedItem={updatedItem}
+            //  handleUpdate={handleUpdate}
+             />
+          </div>
+          <IF condition={finishLoading}>
+            <div>
+              <TodoList
+                list={data}
+                handleComplete={_toggleComplete}
+                // handleRemove={handleRemove}
+                show={show}
+
+              />
+            </div>
+
+          </IF>
+        </section>
       </section>
     </>
   );

@@ -40,7 +40,7 @@ const TodoForm = (props) =>  {
           </label>
           <button name="go" value="add">Add Item</button>
         </form>
-        <IF condition={props.showUpdate}>
+        {/* <IF condition={props.showUpdate}>
           <form onSubmit={handleSubmit} className="updatedForm" >
             <span>Task :</span>
             <input
@@ -52,12 +52,12 @@ const TodoForm = (props) =>  {
             <span>Difficulty :</span>
             <input defaultValue={props.updatedItem.difficulty} type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} />
             <span>Assignee :</span>
-            {/* <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} /> */}
+            <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} />
 
             <button name="go" value="update">update Item</button>
 
           </form>
-        </IF>
+        </IF> */}
 
       </>
     );
