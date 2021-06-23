@@ -1,8 +1,8 @@
 import Header from './Header.js';
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-import ToDo from './todo.js';
 import ToDoConnected from './todo-connected.js';
 
 export default () => {
@@ -14,5 +14,4 @@ export default () => {
     );
 }
 
-// App Component
 
