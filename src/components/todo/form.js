@@ -3,9 +3,13 @@ import useForm from '../Hooks/use-form'
 import IF from './if'
 import '../../css/form.scss'
 import {Container, Row, Col, Button} from 'react-bootstrap'
+import { useContext } from 'react';
+import { SettingContext } from '../../context/setting-manager';
 
 
 const TodoForm = (props) =>  {
+    const context = useContext(SettingContext)
+
     const { item, handleInputChange,  handleSubmit } = useForm()
 
     function handleSubmitAdd(e) {
@@ -45,6 +49,7 @@ const TodoForm = (props) =>  {
                   <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} />
                 </label>
                 <Button variant="outline-primary" type="submit" name="go" value="add">Add Item</Button>
+                <Button variant="outline-primary" onClick={() => context.setDisplayCompletedItem(false)} name="go" value="add">hide</Button>
              </form>
             
             </Col>

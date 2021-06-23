@@ -6,15 +6,19 @@ import IF  from './if'
 import useFetch from '../Hooks/use-fetch'
 import newDate from '../../handleFunction/set-date' 
 import {Container, Row, Col} from 'react-bootstrap'
+import { useContext } from 'react';
+import { SettingContext } from '../../context/setting-manager';
+
 const todoAPI = 'https://api-server402.herokuapp.com/todo';
 
-const ToDo = () => {
 
+const ToDo = () => {
+  const context = useContext(SettingContext)
+  console.log(context.displayCompletedItem)
   const { api, isLoading, finishLoading } = useFetch()
   const [list, setList] = useState([])
   const [showUpdate, setShowUpdate] = useState(false)
   const [updatedItem, setUpdatedItem] = useState({}) 
-
   
   const handleUpdate = async (item) => {
     let newItem = await api('put', `${todoAPI}/${updatedItem._id}`, item)
@@ -23,40 +27,43 @@ const ToDo = () => {
     
     setShowUpdate(false)
   }
-
+  
   const handleRemove = async id => {
     const newList = list.filter(el => el._id !== id)
     setList(newList)
     await api('delete', `${todoAPI}/${id}`)
   }
-
+  
   const show = (item) => {
     showUpdate? setShowUpdate(false) : setShowUpdate(true)
     setUpdatedItem(item)
   }
-
+  
   const _addItem = async (item) => {
     item.complete  = false
     item.date =newDate();
     await api('post', todoAPI, item)
     setList([...list, item])
   };
-
-
+  
+  
   const _toggleComplete = async id => {
-
+    
     let item = list.filter(i => i._id === id)[0] || {};
-
+    
     if (item._id) {
-
+      
       item.complete = !item.complete;
+      
       const newItem = await api('put',`${todoAPI}/${id}`, item)
-      setList(list.map(listItem => listItem._id === item._id ? newItem : listItem));
 
+      setList(list.map(listItem => listItem._id === item._id ? newItem : listItem));
+      
     }
   };
-
+  
   const _getTodoItems =  () => {
+    setList(list.filter(listItem => listItem.complete == context.displayCompletedItem));
     const get = async () => {
       let newList= await api('get', todoAPI)
       setList(newList)
@@ -84,19 +91,15 @@ const ToDo = () => {
       <section className="todo">
 
         <section className="todo">
-
           <div>
           </div>
           <IF condition={finishLoading}>
             <div>
               <TodoList
                 list={list}
-
                 handleComplete={_toggleComplete}
                 handleRemove={handleRemove}
-
                 show={show}
-
               />
             </div>
 

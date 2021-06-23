@@ -1,16 +1,18 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Header.js';
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import SettingsProvider from '../../context/setting-manager.js';
+
 
 
 import ToDoConnected from './todo-connected.js';
 
 export default () => {
     return (
-      <>
+      <SettingsProvider>
         <Header/>
         <ToDoConnected />
-      </>
+      </SettingsProvider>
     );
 }
 
