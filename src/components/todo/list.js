@@ -1,35 +1,31 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../css/list.scss'
+import { useContext } from 'react';
+import { SettingContext } from '../../context/setting-manager';
 
-// import {ProgressBar} from 'react-bootstrap'
+import {Card, Badge} from 'react-bootstrap'
+
 const TodoList = (props) => {
+    const context = useContext(SettingContext)
+    console.log(context);
   
     return (
       <div>
+         {props.list.map(item => (
+        <Card className="card" style={{ width: '18rem' }} >
+          <Card.Body>
+              <Badge className="grabbing"   onClick={() => props.handleComplete(item._id)} variant={item.complete? 'secondary' : 'primary'}>{item.complete ? 'complete' : 'pending'}</Badge>
+              <p >{item.text} </p>
 
-      <ul>
-        {props.list.map(item => (
-          <li
-            className={`complete-${item.complete.toString()}`}
-            key={item._id}
-          >
-            <span onClick={() => props.handleComplete(item._id)}>
-              <div className="task">
-                <p>{item.text} </p>
-                <p>{item.date}  </p>
+          {/* <p >{item.text} </p> */}
+          <p>{item.date}  </p>
+          <button onClick={() => props.handleRemove(item._id)} >X</button>
+          <button onClick={() => props.show(item)} >Update</button>
 
-              </div>
-              <p>{item.assignee}</p>
-            </span>
-            <button onClick={() => props.handleRemove(item._id)} >X</button>
-            <button onClick={() => props.show(item)} >Update</button>
-            
-          </li>
-        ))}
-      </ul>
+          </Card.Body>
+        </Card>
+         ))}
       </div>
-
     );
 }
 

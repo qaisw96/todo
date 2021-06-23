@@ -3,8 +3,6 @@ import { useState, useEffect  } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 import newDate from '../../handleFunction/set-date'
-import superagent from 'superagent'
-import useFetch from '../Hooks/use-fetch'
 
 
 import '../../css/todo.scss';
@@ -64,7 +62,7 @@ const ToDo = (props) => {
 
   };
 
-  useEffect(async ()=> {
+  useEffect( ()=> {
       let list = [
         { _id: 1, complete: false, text: 'Clean the Kitchen', difficulty: 3, assignee: 'Person A' },
         { _id: 2, complete: false, text: 'Do the Laundry', difficulty: 2, assignee: 'Person A'  },
