@@ -12,7 +12,26 @@ const ToDo = () => {
   const { api, isLoading, finishLoading } = useFetch()
   const [list, setList] = useState([])
   const [showUpdate, setShowUpdate] = useState(false)
+  const [updatedItem, setUpdatedItem] = useState({}) 
+
   
+  const handleUpdate = async (item) => {
+    let updateItem = async () => {
+      const res =await api('put', `${todoAPI}/${item._id}`, item)
+      console.log(res);
+    } 
+    updateItem()
+    let newList = list
+    if(item.text ) {
+      for (let i=0; i< newList.length; i++) {
+        if (newList[i]._id === updatedItem._id) {
+          newList[i].text = item.text;
+        }
+      }
+       setList(newList)
+    }
+    setShowUpdate(false)
+  }
 
   const handleRemove =  id => {
     console.log(id);
@@ -26,8 +45,10 @@ const ToDo = () => {
 
   const show = (item) => {
     setShowUpdate(true)
+    setUpdatedItem(item)
   }
   const _addItem = (item) => {
+    console.log(item);
     item.complete  = true
     item.date =newDate();
     let post = async () => {
@@ -88,8 +109,8 @@ const ToDo = () => {
           <div>
             <TodoForm handleSubmit={_addItem}
              showUpdate={showUpdate}
-            //  updatedItem={updatedItem}
-            //  handleUpdate={handleUpdate}
+             updatedItem={updatedItem}
+             handleUpdate={handleUpdate}
              />
           </div>
           <IF condition={finishLoading}>

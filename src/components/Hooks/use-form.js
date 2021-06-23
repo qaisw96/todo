@@ -5,7 +5,6 @@ const useForm = (callback) => {
 
     const handleInputChange = e => {
       setItem({ ...item, [e.target.name]: e.target.value });
-      console.log(item);
     };
   
     const handleSubmit = (e) => {
@@ -17,6 +16,12 @@ const useForm = (callback) => {
       callback(item)
       // setItem({});
     };
+    // const handleUpdate = (e) => {
+    //   e.preventDefault();
+    //   e.target.reset();
+    //   callback(item)
+    //   setItem({});
+    // };
 
     return { item, setItem, handleInputChange,  handleSubmit }
   

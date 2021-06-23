@@ -7,9 +7,17 @@ const TodoForm = (props) =>  {
   const { item, setItem, handleInputChange,  handleSubmit } = useForm(cb)
 
   function cb(item) {
-    console.log(item);
     props.handleSubmit(item) 
   }
+  
+  // function cb(item) {
+  //   console.log(item);
+  // }
+  // function cb1(item) {
+  //   console.log(item);
+  //   props.handleUpdate(item) 
+  // }
+
 
     return (
       <>
