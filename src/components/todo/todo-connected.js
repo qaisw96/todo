@@ -1,20 +1,17 @@
 import '../../css/todo.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 import IF  from './if'
 import useFetch from '../Hooks/use-fetch'
 import newDate from '../../handleFunction/set-date' 
 import {Container, Row, Col} from 'react-bootstrap'
-import { useContext } from 'react';
 import { SettingContext } from '../../context/setting-manager';
 
 const todoAPI = 'https://api-server402.herokuapp.com/todo';
 
-
 const ToDo = () => {
   const context = useContext(SettingContext)
-  console.log(context.displayCompletedItem)
   const { api, isLoading, finishLoading } = useFetch()
   const [list, setList] = useState([])
   const [showUpdate, setShowUpdate] = useState(false)
@@ -41,9 +38,11 @@ const ToDo = () => {
   
   const _addItem = async (item) => {
     item.complete  = false
+    !item.difficulty ? item.difficulty = 1 : item.difficulty = item.difficulty 
     item.date =newDate();
-    await api('post', todoAPI, item)
-    setList([...list, item])
+    const newItem = await api('post', todoAPI, item)
+    console.log(newItem);
+    setList([...list, newItem])
   };
   
   
@@ -72,8 +71,18 @@ const ToDo = () => {
   };
   useEffect(_getTodoItems , []);
 
+  // useEffect(() => {
+  //   console.log('useEffect');
+  //   console.log(list);
+  //   let newList = list.sort((c1, c2)=> c1.difficulty > c2.difficulty ? 1 : -1 ) 
+
+  //   setList(newList)
+
+  // }, [context.sortItems]);
+
   return (
     <>
+    {/* {context.sortItems = 'sort' ? setList(list.sort((c1, c2)=> c1.difficulty > c2.difficulty ? 1 : -1 )) : ''} */}
     <Container>
       <Row>
         <Col sm={6}>
@@ -96,7 +105,7 @@ const ToDo = () => {
           <IF condition={finishLoading}>
             <div>
               <TodoList
-                list={list}
+                list={ context.sortItems === 'sort'? list.sort((c1, c2)=> c1.difficulty > c2.difficulty ? 1 : -1 ) : list }
                 handleComplete={_toggleComplete}
                 handleRemove={handleRemove}
                 show={show}

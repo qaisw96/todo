@@ -1,4 +1,7 @@
 
+.card-section {
+    height: 435px;
+}
 
 .card {
     padding: 0px;
@@ -9,4 +12,11 @@
         cursor: grabbing;
         padding: 7px;
     }
+}
+
+.hide {
+    display: none;
+    padding: 0px;
+    height: 140px;
+    font-size: 10px;
 }
