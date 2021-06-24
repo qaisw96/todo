@@ -5,12 +5,13 @@ export const SettingContext = React.createContext();
 
 const SettingsProvider = (props) => {
     const [displayCompletedItem, setDisplayCompletedItem] = useState(true)
-    const [DisplayItems, setDisplayItems] = useState(3)
+    const [displayItems, setDisplayItems] = useState(3)
     const [sortItems, setSortItems] = useState('')
+
 
     const state = {
         displayCompletedItem,
-        DisplayItems,
+        displayItems,
         sortItems,
         setDisplayCompletedItem,
         setDisplayItems,

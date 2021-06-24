@@ -49,7 +49,10 @@ const TodoForm = (props) =>  {
                   <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} />
                 </label>
                 <Button variant="outline-primary" type="submit" name="go" value="add">Add Item</Button>
-                <Button variant="outline-primary" onClick={() => context.setDisplayCompletedItem(false)} name="go" value="add">hide</Button>
+                <Button
+                 variant="outline-primary"
+                 onClick={() =>context.displayCompletedItem ? context.setDisplayCompletedItem(false) : context.setDisplayCompletedItem(true) } name="go"
+                value="add">{context.displayCompletedItem? 'hide completed' : 'show completed'}</Button>
              </form>
             
             </Col>
