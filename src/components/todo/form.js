@@ -52,7 +52,7 @@ const TodoForm = (props) =>  {
                 <Button
                  variant="outline-primary"
                  onClick={() =>context.displayCompletedItem ? context.setDisplayCompletedItem(false) : context.setDisplayCompletedItem(true) } name="go"
-                  value="add">{context.displayCompletedItem? 'hide' : 'show'}</Button>
+                value="add">{context.displayCompletedItem? 'hide completed' : 'show completed'}</Button>
              </form>
             
             </Col>

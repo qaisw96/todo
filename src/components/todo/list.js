@@ -17,11 +17,34 @@ const TodoList = (props) => {
          {props.list.slice(context.displayItems-3, context.displayItems).map((item, inx) => (
         <Card key={inx} className={!context.displayCompletedItem && item.complete? 'hide' : 'card' } style={{ width: '18rem' }} >
           <Card.Body>
-              <Badge className="grabbing"   onClick={() => props.handleComplete(item._id)} variant={item.complete? 'secondary' : 'primary'}>{item.complete ? 'complete' : 'pending'}</Badge>
-              <p >{item.text} </p>
-              <p>{item.date} ==> {item.difficulty}   </p>
-              <button onClick={() => props.handleRemove(item._id)} >X</button>
-              <button onClick={() => props.show(item)} >Update</button>
+              <Container>
+                <Row>
+                  <Col sm={8}>
+                    <Badge className="grabbing"   onClick={() => props.handleComplete(item._id)} variant={item.complete? 'secondary' : 'primary'}>{item.complete ? 'complete' : 'pending'}</Badge>
+                  </Col>
+                  <Col sm={4}>
+                    <p >{item.assignee} </p> 
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={8}>
+                    <p >{item.text} </p>    
+                  </Col>
+                  <Col sm={4}>
+                    <p>{item.date}  </p>   
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={6}>
+                    <p >Difficulty : {item.difficulty} </p>    
+                  </Col>
+                  <Col sm={6}>
+                    <button onClick={() => props.handleRemove(item._id)} >X</button>
+                    <button onClick={() => props.show(item)} >Update</button>
+                  </Col>
+                </Row>
+              </Container>
+            
           </Card.Body>
         </Card>
          ))}
@@ -43,6 +66,7 @@ const TodoList = (props) => {
             <Dropdown.Item onClick={() => context.setSortItems('sort')} eventKey="1">Difficulty</Dropdown.Item>
             <Dropdown.Divider />
           </DropdownButton>
+          <Button onClick={() => context.setSortItems('')} variant="light">reset</Button>
           </Col>
         </Row>
       </Container>

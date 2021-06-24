@@ -8,6 +8,7 @@ const SettingsProvider = (props) => {
     const [displayItems, setDisplayItems] = useState(3)
     const [sortItems, setSortItems] = useState('')
 
+
     const state = {
         displayCompletedItem,
         displayItems,

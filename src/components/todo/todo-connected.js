@@ -39,6 +39,7 @@ const ToDo = () => {
   const _addItem = async (item) => {
     item.complete  = false
     !item.difficulty ? item.difficulty = 1 : item.difficulty = item.difficulty 
+    !item.assignee ? item.assignee = 'me :)' : item.assignee = item.assignee
     item.date =newDate();
     const newItem = await api('post', todoAPI, item)
     console.log(newItem);
@@ -69,20 +70,11 @@ const ToDo = () => {
     }
     get()
   };
-  useEffect(_getTodoItems , []);
+  useEffect(_getTodoItems , [context.sortItems]);
 
-  // useEffect(() => {
-  //   console.log('useEffect');
-  //   console.log(list);
-  //   let newList = list.sort((c1, c2)=> c1.difficulty > c2.difficulty ? 1 : -1 ) 
-
-  //   setList(newList)
-
-  // }, [context.sortItems]);
 
   return (
     <>
-    {/* {context.sortItems = 'sort' ? setList(list.sort((c1, c2)=> c1.difficulty > c2.difficulty ? 1 : -1 )) : ''} */}
     <Container>
       <Row>
         <Col sm={6}>
@@ -105,7 +97,7 @@ const ToDo = () => {
           <IF condition={finishLoading}>
             <div>
               <TodoList
-                list={ context.sortItems === 'sort'? list.sort((c1, c2)=> c1.difficulty > c2.difficulty ? 1 : -1 ) : list }
+                list={ context.sortItems === 'sort' ? list.sort((c1, c2)=> c1.difficulty > c2.difficulty ? 1 : -1 ) : [...list] }
                 handleComplete={_toggleComplete}
                 handleRemove={handleRemove}
                 show={show}
