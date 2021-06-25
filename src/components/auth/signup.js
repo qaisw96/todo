@@ -1,4 +1,4 @@
-import {Form, Button, Col, Row, DropdownButton, Dropdown, ButtonGroup} from 'react-bootstrap'
+import {Form, Button, Col, Row} from 'react-bootstrap'
 import React, {useContext} from 'react'
 import '../../css/sign-up.scss'
 import ToDo from '../todo/todo-connected'
@@ -8,7 +8,7 @@ import useForm from '../Hooks/use-form'
 
 const SignUp = () => {
     const auContext = useContext(authContext) 
-    const {handleSubmit, handleInputChange, item} = useForm()
+    const { handleInputChange, item} = useForm()
 
     const handleSignUpData = (e) => {
         e.preventDefault()

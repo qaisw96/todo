@@ -3,7 +3,6 @@ import '../../css/header.scss'
 import Login from '../auth/login'
 import {Navbar, Nav} from 'react-bootstrap'
 import {authContext} from '../../context/authContext'
-import IF from './if'
 
 const Header = (props) => {
     const auContext = useContext(authContext)

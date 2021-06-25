@@ -3,7 +3,7 @@ import '../../css/list.scss'
 import { useContext } from 'react';
 import { SettingContext } from '../../context/setting-manager';
 
-import {Card, Badge, ButtonGroup, Button, Container, Row, Col, Dropdown, DropdownType,DropdownButton} from 'react-bootstrap'
+import {Card, Badge, ButtonGroup, Button, Container, Row, Col, Dropdown,DropdownButton} from 'react-bootstrap'
 
 const TodoList = (props) => {
     const context = useContext(SettingContext)
@@ -55,7 +55,7 @@ const TodoList = (props) => {
           {/* <Button variant="secondary" onClick={() => context.setDisplayItems(6)}>2</Button>
           <Button variant="secondary" onClick={() => context.setDisplayItems(9)}>3</Button> */}
             {props.list.slice(-Math.ceil(props.list.length / 3) ).map((el, inx) => (
-              <Button variant="secondary" onClick={() =>  context.setDisplayItems(3*(inx+1)) }>{inx+1}</Button> 
+              <Button key={inx} variant="secondary" onClick={() =>  context.setDisplayItems(3*(inx+1)) }>{inx+1}</Button> 
 
             ))}
        </ButtonGroup>
