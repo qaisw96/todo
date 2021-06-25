@@ -20,6 +20,10 @@ const ToDo = () => {
   const [updatedItem, setUpdatedItem] = useState({}) 
   
   const handleUpdate = async (item) => {
+    if(!(auContext.user.capabilities.includes('update'))){
+      setShowUpdate(false)
+      return
+    } 
     let newItem = await api('put', `${todoAPI}/${updatedItem._id}`, item)
     console.log(newItem);
     setList(list.map(listItem => listItem._id === updatedItem._id ? newItem : listItem));
@@ -28,6 +32,8 @@ const ToDo = () => {
   }
   
   const handleRemove = async id => {
+    if(!(auContext.user.capabilities.includes('delete'))) return 
+    // console.log(auContext.user.capabilities);
     const newList = list.filter(el => el._id !== id)
     setList(newList)
     await api('delete', `${todoAPI}/${id}`)
@@ -77,8 +83,8 @@ const ToDo = () => {
 
   return (
     <>
-    <IF condition={!auContext.loggedIn}>
-      <h3>{auContext.error}</h3>
+    <IF condition={!auContext.loggedIn }>
+      {/* <h3>{auContext.error}</h3> */}
       <div className="lock-page">
         <img height="200px" src="https://ps.w.org/login-customizer/assets/icon-256x256.png?rev=2455454" />
       </div>
@@ -92,6 +98,7 @@ const ToDo = () => {
              showUpdate={showUpdate}
              updatedItem={updatedItem}
              handleUpdate={handleUpdate}
+             acl={auContext.user.capabilities}
              />
         
         </Col>

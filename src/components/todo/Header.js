@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import '../../css/header.scss'
 import Login from '../auth/login'
 import {Navbar, Nav} from 'react-bootstrap'
+import {authContext} from '../../context/authContext'
+import IF from './if'
 
-export default (props) => {
+const Header = (props) => {
+    const auContext = useContext(authContext)
     return (
         <>
             <Navbar className="header" bg="primary" variant="dark">
@@ -14,7 +17,7 @@ export default (props) => {
                 <Nav.Link href="#pricing">Pricing</Nav.Link>
                 </Nav>
                 
-                <Login/>
+                    <Login/>    
         
             </Navbar>
     
@@ -22,3 +25,4 @@ export default (props) => {
     )
 }
 
+export default Header

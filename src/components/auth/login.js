@@ -9,8 +9,6 @@ import IF from '../todo/if'
 const Login = () => {
     const context = useContext(authContext)
     const { item, handleInputChange,  handleSubmit } = useForm()
-    // const [username, setUsername] = useState('')
-    // const [password, setPassword] = useState('')
     
     const handleData = async (e) => {
         e.preventDefault()
@@ -20,14 +18,12 @@ const Login = () => {
     }
     
     // useEffect(() => {
-    //     console.log(context.user);
-    //     console.log(context.loggedIn);
+    //     // const token = cookie.load('auth-token')
+    //     // if(token) context.validateToken(token)
 
     // }, [context.user])
-
     useEffect(() => {
         const token = cookie.load('auth-token')
-        console.log('token', token);
         if(token) context.validateToken(token)
 
     }, [])
