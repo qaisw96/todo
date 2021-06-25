@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import base64 from 'base-64'
 import jwt from 'jsonwebtoken'
 import cookie from 'react-cookies'
-import useFetch from '../components/Hooks/use-fetch';
 import axios from 'axios'
  
 export const authContext = React.createContext();
@@ -34,7 +33,7 @@ class AuthProvider extends React.Component {
         let data = await results.json()
         this.validateToken(data.token)
         console.log(data.token);
-        // if(!data.token) alert('Invalid LogIn') 
+        if(!data.token) alert('Invalid LogIn') 
     }
 
     validateToken = (token) => {

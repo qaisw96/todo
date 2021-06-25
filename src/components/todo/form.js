@@ -5,10 +5,12 @@ import '../../css/form.scss'
 import {Container, Row, Col, Button} from 'react-bootstrap'
 import { useContext } from 'react';
 import { SettingContext } from '../../context/setting-manager';
+import { authContext } from '../../context/authContext'; 
 
 
 const TodoForm = (props) =>  {
     const context = useContext(SettingContext)
+    const auContext = useContext(authContext)
 
     const { item, handleInputChange,  handleSubmit } = useForm()
 
@@ -30,7 +32,7 @@ const TodoForm = (props) =>  {
         <Container>
           <Row>
             <Col>
-            <IF condition={props.acl.includes('create')}>
+            <IF condition={auContext.user.capabilities.includes('create')}>
 
               <h3>Add Item</h3>
               <form onSubmit={handleSubmitAdd} className="addForm">
@@ -62,7 +64,7 @@ const TodoForm = (props) =>  {
             </Col>
 
             <Col>
-              <IF condition={props.showUpdate && props.acl.includes('update')}>
+              <IF condition={props.showUpdate}>
                   <h3>Update Item</h3>
                 <form onSubmit={handleSubmitUpdate} className="updateForm" >
                   <span>Task :</span>

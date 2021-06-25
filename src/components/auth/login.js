@@ -1,7 +1,7 @@
 import React from 'react'
 import useForm from '../Hooks/use-form'
 import {Button} from 'react-bootstrap'
-import {useContext, useState, useEffect} from 'react'
+import {useContext, useEffect} from 'react'
 import {authContext} from '../../context/authContext'
 import cookie from 'react-cookies'
 import IF from '../todo/if'
