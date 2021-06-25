@@ -51,9 +51,13 @@ const TodoList = (props) => {
 
         </section>
         <ButtonGroup className="mr-2" aria-label="First group">
-            <Button variant="secondary" onClick={() => context.setDisplayItems(3)}>1</Button>{' '}
-            <Button variant="secondary" onClick={() => context.setDisplayItems(6)}>2</Button>{' '}
-            <Button variant="secondary" onClick={() => context.setDisplayItems(9)}>3</Button>{' '}
+     
+          {/* <Button variant="secondary" onClick={() => context.setDisplayItems(6)}>2</Button>
+          <Button variant="secondary" onClick={() => context.setDisplayItems(9)}>3</Button> */}
+            {props.list.slice(-Math.ceil(props.list.length / 3) ).map((el, inx) => (
+              <Button variant="secondary" onClick={() =>  context.setDisplayItems(3*(inx+1)) }>{inx+1}</Button> 
+
+            ))}
        </ButtonGroup>
           </Col>
 

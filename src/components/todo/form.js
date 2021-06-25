@@ -13,6 +13,7 @@ const TodoForm = (props) =>  {
     const { item, handleInputChange,  handleSubmit } = useForm()
 
     function handleSubmitAdd(e) {
+      if(!(props.acl.includes('create'))) return
       handleSubmit(e)
       props.handleSubmit(item) 
     }
@@ -29,6 +30,8 @@ const TodoForm = (props) =>  {
         <Container>
           <Row>
             <Col>
+            <IF condition={props.acl.includes('create')}>
+
               <h3>Add Item</h3>
               <form onSubmit={handleSubmitAdd} className="addForm">
                 <label>
@@ -49,16 +52,17 @@ const TodoForm = (props) =>  {
                   <input type="text" name="assignee" placeholder="Assigned To" onChange={handleInputChange} />
                 </label>
                 <Button variant="outline-primary" type="submit" name="go" value="add">Add Item</Button>
+             </form>
+              </IF>
                 <Button
                  variant="outline-primary"
                  onClick={() =>context.displayCompletedItem ? context.setDisplayCompletedItem(false) : context.setDisplayCompletedItem(true) } name="go"
                 value="add">{context.displayCompletedItem? 'hide completed' : 'show completed'}</Button>
-             </form>
             
             </Col>
 
             <Col>
-              <IF condition={props.showUpdate}>
+              <IF condition={props.showUpdate && props.acl.includes('update')}>
                   <h3>Update Item</h3>
                 <form onSubmit={handleSubmitUpdate} className="updateForm" >
                   <span>Task :</span>
