@@ -5,13 +5,15 @@ import TodoList from './list.js';
 import IF  from './if'
 import useFetch from '../Hooks/use-fetch'
 import newDate from '../../handleFunction/set-date' 
-import {Container, Row, Col} from 'react-bootstrap'
+import {Container, Row, Col, Spinner} from 'react-bootstrap'
 import { SettingContext } from '../../context/setting-manager';
+import { authContext } from '../../context/authContext';
 
 const todoAPI = 'https://api-server402.herokuapp.com/todo';
 
 const ToDo = () => {
   const context = useContext(SettingContext)
+  const auContext = useContext(authContext)
   const { api, isLoading, finishLoading } = useFetch()
   const [list, setList] = useState([])
   const [showUpdate, setShowUpdate] = useState(false)
@@ -75,6 +77,14 @@ const ToDo = () => {
 
   return (
     <>
+    <IF condition={!auContext.loggedIn}>
+      <h3>{auContext.error}</h3>
+      <div className="lock-page">
+        <img height="200px" src="https://ps.w.org/login-customizer/assets/icon-256x256.png?rev=2455454" />
+      </div>
+    </IF> 
+    <IF condition={auContext.loggedIn}>
+
     <Container>
       <Row>
         <Col sm={6}>
@@ -94,6 +104,12 @@ const ToDo = () => {
         <section className="todo">
           <div>
           </div>
+          <IF condition={isLoading}>
+            <div  className="loading">
+            <Spinner animation="border" variant="primary" />
+            </div>
+
+          </IF>
           <IF condition={finishLoading}>
             <div>
               <TodoList
@@ -111,6 +127,7 @@ const ToDo = () => {
       </Row>
     </Container>
 
+    </IF>
     </>
   );
 };

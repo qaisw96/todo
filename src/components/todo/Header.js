@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../css/header.scss'
+import Login from '../auth/login'
 import {Navbar, Nav} from 'react-bootstrap'
 
 export default (props) => {
@@ -12,6 +13,9 @@ export default (props) => {
                 <Nav.Link href="#features">Features</Nav.Link>
                 <Nav.Link href="#pricing">Pricing</Nav.Link>
                 </Nav>
+                
+                <Login/>
+        
             </Navbar>
     
         </>
