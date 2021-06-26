@@ -4,9 +4,20 @@
     margin: 0 auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
+    text-align: center;
+    .signup-form {
+        width: 450px;
+        // height: 800px;
+    }
 }
 
 .signup-button {
+    margin-top: 30px;
+}
+
+.select {
+    width: 120px;
     margin-top: 10px;
+    height: 40px;
 }

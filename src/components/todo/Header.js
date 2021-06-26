@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import '../../css/header.scss'
 import Login from '../auth/login'
-import {Navbar, Nav} from 'react-bootstrap'
+import {Navbar, Nav, ProgressBar} from 'react-bootstrap'
 import {authContext} from '../../context/authContext'
 
 const Header = (props) => {
@@ -15,7 +15,6 @@ const Header = (props) => {
                 <Nav.Link href="#features">Features</Nav.Link>
                 <Nav.Link href="#pricing">Pricing</Nav.Link>
                 </Nav>
-                
                     <Login/>    
         
             </Navbar>

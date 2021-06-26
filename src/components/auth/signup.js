@@ -23,7 +23,7 @@ const SignUp = () => {
         <IF condition={!auContext.loggedIn  }>
 
         <div className="sign-up">
-            <Form onSubmit={handleSignUpData} >
+            <Form onSubmit={handleSignUpData} className="signup-form" >
                 <Form.Group as={Row} controlId="formHorizontalEmail">
                     <Form.Label column sm={2}>
                     </Form.Label>
@@ -45,7 +45,7 @@ const SignUp = () => {
                     </Form.Label>
                     <Col sm={10}>
                     <Form.Control required name="password" type="password" placeholder="Password"  onChange={handleInputChange}  />
-                <select id="cars" name="cars">
+                <select className="select" name="cars">
                     <option value="user">user</option>
                     <option value="editor">editor</option>
                     <option value="admin">admin</option>
