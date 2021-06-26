@@ -40,15 +40,15 @@ class AuthProvider extends React.Component {
         const user = jwt.decode(token)
         if(user) {
             this.setAuthState( true ,user, token)
-            this.setState({user:user })
         } else {
             this.setState({error: 'Invalid LogIn'})
         }
         
         console.log(user);
     }
-
+    
     setAuthState = (loggedIn, user, token) => {
+        this.setState({user:user })
         this.setState({loggedIn})
         cookie.save('auth-token', token)
     }
